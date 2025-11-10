@@ -1,0 +1,23 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.simargmbh.desktop
+productName: Simar GmbH
+files:
+  - filter:
+      - main.js
+      - artisan
+      - app/**/*
+      - bootstrap/**/*
+      - config/**/*
+      - database/**/*
+      - public/**/*
+      - resources/**/*
+      - routes/**/*
+      - storage/**/*
+      - vendor/**/*
+mac:
+  target: zip
+win:
+  target: zip
+electronVersion: 38.4.0
