@@ -187,7 +187,7 @@ For support, please open an issue in the GitHub repository or contact the mainta
 
 ## Author
 
-👤 **Kevin Psenjen**
+👤 **Venay pratap singh**
 
 ## Acknowledgments
 
@@ -213,7 +213,7 @@ If you find this project helpful, please give it a ⭐️ on GitHub!
 - Git to versionning your work.
 
 ### Author
-👤 **Kevin Psenjen**
+👤 **Venay Pratap SIngh**
 
 ## 🤝 Contributing
 Contributions, issues, and feature requests are welcome!
