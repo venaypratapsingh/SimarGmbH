@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - app_storage:/app/storage
+      - app_bootstrap_cache:/app/bootstrap/cache
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/app/database/database.sqlite
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "php", "artisan", "tinker", "--execute=echo 'OK'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  app_storage:
+  app_bootstrap_cache:
+
+networks:
+  default:
+    name: attendance-network
+

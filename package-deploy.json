@@ -1,0 +1,15 @@
+{
+  "name": "attendance-system-deploy",
+  "description": "Deploy Laravel Attendance Management System",
+  "scripts": {
+    "deploy:local": "bash deploy.sh local",
+    "deploy:docker": "bash deploy.sh docker",
+    "deploy:render": "bash deploy.sh render",
+    "deploy:railway": "bash deploy.sh railway",
+    "deploy:cyclic": "bash deploy.sh cyclic"
+  },
+  "dependencies": {
+    "simple-git": "^3.0"
+  }
+}
+
