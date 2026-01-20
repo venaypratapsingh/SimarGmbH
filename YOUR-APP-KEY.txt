@@ -1,0 +1,29 @@
+⚠️ KEEP THIS SECURE - DO NOT SHARE OR COMMIT TO GIT ⚠️
+
+Your Laravel APP_KEY:
+
+APP_KEY=base64:Aq53BZu1YDa67NGomP25SIUWOIhVtefd1RCwIg13nFQ=
+
+📋 How to Use:
+
+1. For Local Development (.env file):
+   - Already added to your .env file ✅
+   - Format: APP_KEY=base64:Aq53BZu1YDa67NGomP25SIUWOIhVtefd1RCwIg13nFQ=
+
+2. For Render.com Deployment:
+   - Go to: Environment → Add Variable
+   - Name: APP_KEY
+   - Value: base64:Aq53BZu1YDa67NGomP25SIUWOIhVtefd1RCwIg13nFQ=
+
+3. For Railway.app Deployment:
+   - Go to: Variables → + New Variable
+   - Key: APP_KEY
+   - Value: base64:Aq53BZu1YDa67NGomP25SIUWOIhVtefd1RCwIg13nFQ=
+
+🔒 Security Notes:
+- Never commit this file to Git
+- Never share this key publicly
+- Each environment (dev/prod) should have its own key
+- Keep this file secure
+
+✅ Status: APP_KEY has been added to your .env file

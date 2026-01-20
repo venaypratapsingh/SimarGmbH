@@ -41,11 +41,27 @@ A comprehensive attendance management system built with Laravel, featuring biome
 ## Requirements
 
 - PHP >= 8.1
-- MySQL >= 5.7
+- Database: MySQL >= 5.7, PostgreSQL (Supabase), or SQLite
 - Composer
 - Node.js & NPM
-- Redis Server
+- Redis Server (optional)
 - ZKTeco Biometric Device (optional)
+
+## 🚀 Cloud Deployment
+
+### Azure Web App + Supabase (Recommended)
+
+Deploy to Azure Web App with Supabase PostgreSQL database:
+
+- **Quick Start**: See [`QUICK-DEPLOY-AZURE.md`](QUICK-DEPLOY-AZURE.md) for a 15-minute setup
+- **Complete Guide**: See [`AZURE-SUPABASE-DEPLOY.md`](AZURE-SUPABASE-DEPLOY.md) for detailed instructions
+- **Supabase Setup**: See [`SUPABASE-SETUP.md`](SUPABASE-SETUP.md) for database configuration
+
+### Other Hosting Options
+
+- **Render.com**: See [`RENDER-DEPLOY.md`](RENDER-DEPLOY.md)
+- **Railway.app**: See [`RAILWAY-DEPLOY.md`](RAILWAY-DEPLOY.md)
+- **General Hosting**: See [`HOSTING.md`](HOSTING.md)
 
 ## Installation
 

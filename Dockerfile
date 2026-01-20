@@ -51,12 +51,12 @@ RUN npm run build 2>&1 | tail -10 || \
 RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache database && \
     chmod -R 775 storage bootstrap/cache database
 
-# Expose port (Railway uses $PORT environment variable)
-EXPOSE $PORT
+# Expose port (Railway will map $PORT at runtime)
+EXPOSE 8000
 
 # Health check (simpler version for Render)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD php -r "echo file_exists('/app/bootstrap/cache/config.php') ? 'OK' : 'NOT_READY';" || exit 1
 
-# Start Laravel server (Railway provides $PORT)
+# Start Laravel server (Railway provides $PORT environment variable)
 CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
