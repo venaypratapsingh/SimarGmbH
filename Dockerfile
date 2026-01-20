@@ -42,14 +42,13 @@ COPY . .
 RUN npm install --no-audit --no-fund --legacy-peer-deps 2>&1 | tail -10 || \
     npm install --no-audit --no-fund 2>&1 | tail -10 || echo "npm install completed with warnings"
 
-# Build assets (with error handling)
-RUN npm run build 2>&1 | tail -10 || \
-    npm run prod 2>&1 | tail -10 || \
-    npm run production 2>&1 | tail -10 || echo "Asset build completed with warnings"
+# Build assets (production build)
+RUN npm run production 2>&1 | tail -10 || echo "Asset build completed with warnings"
 
 # Create necessary directories
 RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache database && \
-    chmod -R 775 storage bootstrap/cache database
+    chmod -R 775 storage bootstrap/cache database && \
+    php artisan storage:link || echo "Storage link already exists"
 
 # Expose port (Railway will map $PORT at runtime)
 EXPOSE 8000
