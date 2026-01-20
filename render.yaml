@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: simargmbh
+    runtime: php
+    buildCommand: composer install --no-dev --optimize-autoloader && npm install && npm run build
+    startCommand: vendor/bin/heroku-php-apache2 public/
+    envVars:
+      - key: APP_NAME
+        value: Attendance System
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        value: base64:Aq53BZu1YDa67NGomP25SIUWOIhVtefd1RCwIg13nFQ=
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        value: db.gaceopxhzgdxjjbflozf.supabase.co
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        value: postgres
+      - key: DB_USERNAME
+        value: postgres
+      - key: DB_PASSWORD
+        value: lA24fOnhlqTlQkHv
+      - key: DB_SSLMODE
+        value: require
+      - key: CACHE_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: SESSION_DRIVER
+        value: file
+      - key: LOG_CHANNEL
+        value: stack
+      - key: LOG_LEVEL
+        value: error
