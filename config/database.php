@@ -76,6 +76,10 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => env('DB_SSLMODE', 'prefer'),
+            'options' => [
+                // Force IPv4 connection
+                PDO::ATTR_PERSISTENT => false,
+            ],
         ],
 
         'sqlsrv' => [
