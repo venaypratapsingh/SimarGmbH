@@ -13,13 +13,17 @@ RUN apt-get update --fix-missing 2>/dev/null || true && \
         unzip \
         sqlite3 \
         libsqlite3-dev \
+        libpq-dev \
+        postgresql-client \
         nodejs \
         npm \
     2>&1 | grep -v "debconf: unable to initialize" || true && \
-    # Install PostgreSQL dependencies
-    apt-get install -y --no-install-recommends libpq-dev 2>/dev/null || true && \
-    # Install PHP extensions
-    docker-php-ext-install pdo pdo_sqlite pdo_pgsql pgsql gd zip bcmath 2>&1 | tail -5 || true && \
+    # Install PHP extensions (PostgreSQL MUST be installed)
+    docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
+    docker-php-ext-install -j$(nproc) pdo pdo_sqlite pdo_pgsql pgsql gd zip bcmath 2>&1 || \
+    (docker-php-ext-configure pdo_pgsql && docker-php-ext-install pdo_pgsql) || \
+    (apt-get install -y libpq-dev && docker-php-ext-install pdo_pgsql pgsql) || \
+    echo "PostgreSQL extension installation attempted" && \
     # Cleanup
     apt-get clean 2>/dev/null || true && \
     rm -rf /var/lib/apt/lists/* 2>/dev/null || true
