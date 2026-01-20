@@ -16,8 +16,10 @@ RUN apt-get update --fix-missing 2>/dev/null || true && \
         nodejs \
         npm \
     2>&1 | grep -v "debconf: unable to initialize" || true && \
+    # Install PostgreSQL dependencies
+    apt-get install -y --no-install-recommends libpq-dev 2>/dev/null || true && \
     # Install PHP extensions
-    docker-php-ext-install pdo pdo_sqlite gd zip bcmath 2>&1 | tail -5 || true && \
+    docker-php-ext-install pdo pdo_sqlite pdo_pgsql pgsql gd zip bcmath 2>&1 | tail -5 || true && \
     # Cleanup
     apt-get clean 2>/dev/null || true && \
     rm -rf /var/lib/apt/lists/* 2>/dev/null || true
