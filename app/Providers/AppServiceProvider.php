@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Force HTTPS for asset URLs in production
+        if (config('app.env') === 'production') {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+        
         if (session()->has('locale')) {
             app()->setLocale(session('locale'));
         }
