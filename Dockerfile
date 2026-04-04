@@ -63,5 +63,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD php -r "echo file_exists('/app/bootstrap/cache/config.php') ? 'OK' : 'NOT_READY';" || exit 1
 
-# Start Laravel server (Render/Railway provides $PORT environment variable)
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
+# Start: run migrations then serve
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
