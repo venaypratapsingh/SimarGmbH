@@ -81,13 +81,13 @@
                                         <td>
 
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio"
+                                                <input class="form-check-input deselectable-radio" type="radio"
                                                     name="attd[{{ $date_picker }}][{{ $employee->id }}]" value="present"
                                                     @if (isset($check_attd) && $check_attd->status == 1) checked @endif>
                                                 <label class="form-check-label">✓</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio"
+                                                <input class="form-check-input deselectable-radio" type="radio"
                                                     name="attd[{{ $date_picker }}][{{ $employee->id }}]" value="absent"
                                                     @if (isset($check_attd) && $check_attd->status == 0) checked @endif>
                                                 <label class="form-check-label">✗</label>
@@ -109,4 +109,22 @@
             </div>
         </div>
     </div>
+
+@section('script')
+<script>
+    // Allow clicking an already-checked radio to deselect it (removes the attendance record on submit)
+    document.querySelectorAll('.deselectable-radio').forEach(function(radio) {
+        radio.addEventListener('mousedown', function() {
+            this._wasChecked = this.checked;
+        });
+        radio.addEventListener('click', function() {
+            if (this._wasChecked) {
+                this.checked = false;
+                this._wasChecked = false;
+            }
+        });
+    });
+</script>
+@endsection
+
 @endsection
