@@ -14,17 +14,19 @@ return new class extends Migration
     {
         // Check if email column exists before dropping it
         if (Schema::hasColumn('employees', 'email')) {
-            // Drop the unique constraint using raw SQL (works on both PostgreSQL and MySQL)
-            DB::statement('ALTER TABLE employees DROP CONSTRAINT IF EXISTS employees_email_unique');
-            // Also handle MySQL where it's an index not a constraint
-            try {
-                Schema::table('employees', function (Blueprint $table) {
-                    if (Schema::hasIndex('employees', 'employees_email_unique')) {
-                        $table->dropIndex('employees_email_unique');
-                    }
-                });
-            } catch (\Exception $e) {
-                // Already dropped via constraint above, ignore
+            // PostgreSQL: drop constraint; SQLite/MySQL: drop index
+            if (DB::connection()->getDriverName() === 'pgsql') {
+                DB::statement('ALTER TABLE employees DROP CONSTRAINT IF EXISTS employees_email_unique');
+            } else {
+                try {
+                    Schema::table('employees', function (Blueprint $table) {
+                        if (Schema::hasIndex('employees', 'employees_email_unique')) {
+                            $table->dropIndex('employees_email_unique');
+                        }
+                    });
+                } catch (\Exception $e) {
+                    // Index may not exist, continue
+                }
             }
 
             // Then drop the column
