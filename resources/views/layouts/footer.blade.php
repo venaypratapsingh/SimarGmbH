@@ -1,3 +1,3 @@
 <footer class="footer">
-     ©  {{date('Y')}} Attendance Management System <span class="d-none d-sm-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> VENAY PRATAP SINGH</span>.
+     ©  {{date('Y')}} Attendance Management System <span class="d-none d-sm-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> NIGHT NINJA</span>.
 </footer>
