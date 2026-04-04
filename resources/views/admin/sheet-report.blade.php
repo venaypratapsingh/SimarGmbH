@@ -93,7 +93,7 @@
                                                 @else
                                                     <i class="fa fa-times text-danger"></i>
                                                 @endif
-                                            @else
+                                            @elseif ($date_picker <= today()->format('Y-m-d'))
                                                 <i class="fa fa-times text-danger"></i>
                                             @endif
                                         </div>
