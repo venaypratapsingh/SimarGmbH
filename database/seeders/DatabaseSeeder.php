@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $user= User::create([
             'name' => 'Admin',
             'email' => 'admin@simargmbh.com',
-            'password' => '$2y$10$BdbRZPk/z9YdR4TlEvMvPum/qM3mzxlJ5nw11nJthPB3pQuRS1tLi',
+            'password' => '$2y$10$jq2BtYq2.eg7tNgdXqKvye.1kiximVyOiH1MC4ZlmTE9NqZAhEWmq',
         ]);
         $role = Role::create([
             'slug' => 'admin',
