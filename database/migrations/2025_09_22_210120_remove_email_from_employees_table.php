@@ -13,10 +13,10 @@ return new class extends Migration
     {
         // Check if email column exists before dropping it
         if (Schema::hasColumn('employees', 'email')) {
-            // First drop the unique index if it exists
+            // First drop the unique constraint/index if it exists
             if (Schema::hasIndex('employees', 'employees_email_unique')) {
                 Schema::table('employees', function (Blueprint $table) {
-                    $table->dropIndex('employees_email_unique');
+                    $table->dropUnique('employees_email_unique');
                 });
             }
 
