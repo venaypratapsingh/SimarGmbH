@@ -17,20 +17,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user= User::create([
-            'name' => 'Admin',
-            'email' => 'admin@simargmbh.com',
-            'password' => '$2y$10$jq2BtYq2.eg7tNgdXqKvye.1kiximVyOiH1MC4ZlmTE9NqZAhEWmq',
-        ]);
-        $role = Role::create([
-            'slug' => 'admin',
-            'name' => 'Adminstrator',
-        ]);
-        $user->roles()->sync($role->id);
+        $user = User::firstOrCreate(
+            ['email' => 'admin@simargmbh.com'],
+            [
+                'name' => 'Admin',
+                'password' => '$2y$10$jq2BtYq2.eg7tNgdXqKvye.1kiximVyOiH1MC4ZlmTE9NqZAhEWmq',
+            ]
+        );
 
-        $employeeRole = Role::create([
-            'slug' => 'employee',
-            'name' => 'Employee',
-        ]);
+        $role = Role::firstOrCreate(
+            ['slug' => 'admin'],
+            ['name' => 'Adminstrator']
+        );
+        $user->roles()->syncWithoutDetaching($role->id);
+
+        Role::firstOrCreate(
+            ['slug' => 'employee'],
+            ['name' => 'Employee']
+        );
     }
 }
