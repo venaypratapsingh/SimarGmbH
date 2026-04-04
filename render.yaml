@@ -1,30 +1,50 @@
+databases:
+  - name: simargmbh-db
+    databaseName: simargmbh
+    user: simargmbh
+    plan: free
+
 services:
   - type: web
     name: simargmbh
-    runtime: php
-    buildCommand: composer install --no-dev --optimize-autoloader && npm install && npm run build
-    startCommand: vendor/bin/heroku-php-apache2 public/
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    preDeployCommand: php artisan migrate --force
     envVars:
       - key: APP_NAME
-        value: Attendance System
+        value: "Attendance Management System"
       - key: APP_ENV
         value: production
       - key: APP_KEY
-        value: base64:Aq53BZu1YDa67NGomP25SIUWOIhVtefd1RCwIg13nFQ=
+        value: base64:oZeQtl191M1fElZxT9IdBUYJEWm401fQQ1z3BS7Tv5I=
       - key: APP_DEBUG
         value: false
+      - key: APP_URL
+        sync: false
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        value: db.gaceopxhzgdxjjbflozf.supabase.co
+        fromDatabase:
+          name: simargmbh-db
+          property: host
       - key: DB_PORT
-        value: 5432
+        fromDatabase:
+          name: simargmbh-db
+          property: port
       - key: DB_DATABASE
-        value: postgres
+        fromDatabase:
+          name: simargmbh-db
+          property: database
       - key: DB_USERNAME
-        value: postgres
+        fromDatabase:
+          name: simargmbh-db
+          property: user
       - key: DB_PASSWORD
-        value: lA24fOnhlqTlQkHv
+        fromDatabase:
+          name: simargmbh-db
+          property: password
       - key: DB_SSLMODE
         value: require
       - key: CACHE_DRIVER
@@ -34,6 +54,6 @@ services:
       - key: SESSION_DRIVER
         value: file
       - key: LOG_CHANNEL
-        value: stack
+        value: stderr
       - key: LOG_LEVEL
         value: error

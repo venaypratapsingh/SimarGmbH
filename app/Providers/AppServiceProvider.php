@@ -37,5 +37,30 @@ class AppServiceProvider extends ServiceProvider
         if (session()->has('locale')) {
             app()->setLocale(session('locale'));
         }
+        
+        // Force IPv4 for PostgreSQL connections (fixes IPv6 "Network is unreachable" error)
+        $this->forceIpv4ForDatabase();
+    }
+    
+    /**
+     * Force IPv4 resolution for database host to avoid IPv6 connection issues
+     *
+     * @return void
+     */
+    protected function forceIpv4ForDatabase()
+    {
+        $dbHost = env('DB_HOST');
+        
+        // Only apply if DB_HOST is set and contains a domain name (not already an IP)
+        if ($dbHost && !filter_var($dbHost, FILTER_VALIDATE_IP)) {
+            // Resolve hostname to IPv4 address
+            $ipv4 = gethostbyname($dbHost);
+            
+            // Only update if we got a valid IPv4 (not the hostname itself)
+            if ($ipv4 && $ipv4 !== $dbHost && filter_var($ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                // Override the config to use IPv4 address
+                config(['database.connections.pgsql.host' => $ipv4]);
+            }
+        }
     }
 }
