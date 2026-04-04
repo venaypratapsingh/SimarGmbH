@@ -11,20 +11,20 @@ services:
     dockerfilePath: ./Dockerfile
     dockerContext: .
     plan: free
-    preDeployCommand: php artisan migrate --force
+    preDeployCommand: "php artisan migrate --force"
     envVars:
       - key: APP_NAME
         value: "Attendance Management System"
       - key: APP_ENV
-        value: production
+        value: "production"
       - key: APP_KEY
-        value: base64:oZeQtl191M1fElZxT9IdBUYJEWm401fQQ1z3BS7Tv5I=
+        value: "base64:oZeQtl191M1fElZxT9IdBUYJEWm401fQQ1z3BS7Tv5I="
       - key: APP_DEBUG
-        value: false
+        value: "false"
       - key: APP_URL
-        sync: false
+        value: "https://simargmbh.onrender.com"
       - key: DB_CONNECTION
-        value: pgsql
+        value: "pgsql"
       - key: DB_HOST
         fromDatabase:
           name: simargmbh-db
@@ -46,14 +46,14 @@ services:
           name: simargmbh-db
           property: password
       - key: DB_SSLMODE
-        value: require
+        value: "require"
       - key: CACHE_DRIVER
-        value: file
+        value: "file"
       - key: QUEUE_CONNECTION
-        value: sync
+        value: "sync"
       - key: SESSION_DRIVER
-        value: file
+        value: "file"
       - key: LOG_CHANNEL
-        value: stderr
+        value: "stderr"
       - key: LOG_LEVEL
-        value: error
+        value: "error"
