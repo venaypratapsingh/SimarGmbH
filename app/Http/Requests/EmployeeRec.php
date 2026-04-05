@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmployeeRec extends FormRequest
 {
@@ -26,7 +27,11 @@ class EmployeeRec extends FormRequest
         $employeeId = $this->route('employee') ? $this->route('employee')->id : null;
 
         return [
-            'name' => 'required|string|min:3|max:64|alpha_dash|unique:employees,name,' . $employeeId,
+            'name' => [
+                'required', 'string', 'min:3', 'max:64',
+                'regex:/^[\pL\s\-\'\.]+$/u',
+                Rule::unique('employees', 'name')->ignore($employeeId),
+            ],
             'restaurant' => 'required|string|min:3|max:64',
             'member_since' => 'required|date',
             'schedule' => 'nullable|exists:schedules,slug',

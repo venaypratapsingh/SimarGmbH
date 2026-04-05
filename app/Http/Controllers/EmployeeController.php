@@ -56,8 +56,9 @@ class EmployeeController extends Controller
             flash()->success('Success','Employee Record has been created successfully !');
             return redirect()->route('employees.index')->with('success');
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             \DB::rollback();
+            \Log::error('Employee store error: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
             flash()->error('Error', 'An error occurred while creating the employee record.');
             return redirect()->back()->withInput();
         }
@@ -90,8 +91,9 @@ class EmployeeController extends Controller
             flash()->success('Success','Employee Record has been Updated successfully !');
             return redirect()->route('employees.index')->with('success');
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             \DB::rollback();
+            \Log::error('Employee update error: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
             flash()->error('Error', 'An error occurred while updating the employee record.');
             return redirect()->back()->withInput();
         }
