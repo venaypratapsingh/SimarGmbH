@@ -10,10 +10,6 @@ class Employee extends Model
 {
     use HasFactory, Notifiable;
     
-    public function getRouteKeyName()
-    {
-        return 'name';
-    }
     protected $table = 'employees';
     protected $fillable = [
         'name', 'restaurant', 'member_since'

@@ -102,8 +102,13 @@ class EmployeeController extends Controller
 
     public function destroy(Employee $employee)
     {
-        $employee->delete();
-        flash()->success('Success','Employee Record has been Deleted successfully !');
+        try {
+            $employee->delete();
+            flash()->success('Success', 'Employee Record has been Deleted successfully !');
+        } catch (\Throwable $e) {
+            \Log::error('Employee destroy error: ' . $e->getMessage());
+            flash()->error('Error', 'An error occurred while deleting the employee record.');
+        }
         return redirect()->route('employees.index')->with('success');
     }
 
