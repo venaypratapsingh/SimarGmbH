@@ -153,6 +153,22 @@
         <p>Total Records: {{ $attendances->count() }}</p>
         <p>On Time: {{ $attendances->where('status', 1)->count() }}</p>
         <p>Late: {{ $attendances->where('status', 0)->count() }}</p>
+        @php
+            // Calculate total working hours
+            $totalMinutes = 0;
+            foreach($attendances as $a) {
+                if ($a->total_working_time) {
+                    $parts = explode(':', $a->total_working_time);
+                    $hours = intval($parts[0] ?? 0);
+                    $minutes = intval($parts[1] ?? 0);
+                    $totalMinutes += ($hours * 60) + $minutes;
+                }
+            }
+            $totalHours = floor($totalMinutes / 60);
+            $remainingMins = $totalMinutes % 60;
+            $totalTime = sprintf('%02d:%02d', $totalHours, $remainingMins);
+        @endphp
+        <p><strong>Total Working Hours: {{ $totalTime }}</strong></p>
     </div>
 
     <div style="margin-top: 40px;">
