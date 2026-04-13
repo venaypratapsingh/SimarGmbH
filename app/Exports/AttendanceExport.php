@@ -52,11 +52,21 @@ class AttendanceExport implements FromCollection, WithHeadings, WithMapping
     {
         $isAbsent = $attendance->status == 0;
         
-        // Extract only the first code from absence_reason (handles legacy multi-code data)
+        // Extract only valid codes from absence_reason (handles legacy multi-code/multi-line data)
         $reasonText = $attendance->absence_reason;
         if ($reasonText) {
-            $codes = preg_split('/[\n,\s]+/', trim($reasonText));
-            $reasonText = reset($codes);
+            $reasonText = trim($reasonText);
+            
+            // Split by newline, comma, or whitespace
+            $codes = preg_split('/[\n,\s]+/', $reasonText, -1, PREG_SPLIT_NO_EMPTY);
+            
+            // Filter out 'Not specified' and get only valid codes
+            $validCodes = array_filter($codes, function($code) {
+                return $code !== 'Not specified' && strlen($code) > 0;
+            });
+            
+            // Take the first valid code
+            $reasonText = reset($validCodes) ?: ($reasonText === 'Not specified' ? 'Not specified' : '');
         }
         
         return [

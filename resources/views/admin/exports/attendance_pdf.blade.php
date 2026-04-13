@@ -90,10 +90,20 @@
                 <td>
                     @php
                         $reasonText = $attendance->absence_reason;
-                        // Display only the first code if multiple exist (legacy data)
+                        // Clean up the absence reason - extract valid codes only
                         if ($reasonText) {
-                            $codes = preg_split('/[\n,\s]+/', trim($reasonText));
-                            $reasonText = reset($codes);
+                            $reasonText = trim($reasonText);
+                            
+                            // Split by newline, comma, or whitespace
+                            $codes = preg_split('/[\n,\s]+/', $reasonText, -1, PREG_SPLIT_NO_EMPTY);
+                            
+                            // Filter out 'Not specified' and get only valid codes
+                            $validCodes = array_filter($codes, function($code) {
+                                return $code !== 'Not specified' && strlen($code) > 0;
+                            });
+                            
+                            // Take the first valid code, or 'Not specified' if none found
+                            $reasonText = reset($validCodes) ?: ($reasonText === 'Not specified' ? 'Not specified' : '');
                         }
                     @endphp
                     {{ $reasonText ?? ($attendance->status == 0 ? 'N/A' : '') }}
