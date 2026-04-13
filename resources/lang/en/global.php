@@ -679,7 +679,45 @@ return [
 
         "December"
 
-    ]
+    ],
+
+    'attendance'                           => 'Attendance',
+
+    'employees'                            => 'Employees',
+
+    'employee'                             => 'Employee',
+
+    'date'                                 => 'Date',
+
+    'status'                               => 'Status',
+
+    'present'                              => 'Present',
+
+    'absent'                               => 'Absent',
+
+    'absence_reason'                       => 'Absence Reason',
+
+    'time_in'                              => 'Time In',
+
+    'time_out'                             => 'Time Out',
+
+    'working_time'                         => 'Working Time',
+
+    'total_working_time'                   => 'Total Working Time',
+
+    'export'                               => 'Export',
+
+    'pdf_export'                           => 'Export as PDF',
+
+    'excel_export'                         => 'Export as Excel',
+
+    'csv_export'                           => 'Export as CSV',
+
+    'notifications'                        => 'Notifications',
+
+    'profile'                              => 'Profile',
+
+    'lock_screen'                          => 'Lock Screen',
 
 ];
 
