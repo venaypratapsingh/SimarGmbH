@@ -87,7 +87,17 @@
                 <td class="{{ $attendance->status == 1 ? 'status-on-time' : 'status-late' }}">
                     {{ $attendance->status == 1 ? 'Present' : 'Absent' }}
                 </td>
-                <td>{{ $attendance->absence_reason ?? ($attendance->status == 0 ? 'N/A' : '') }}</td>
+                <td>
+                    @php
+                        $reasonText = $attendance->absence_reason;
+                        // Display only the first code if multiple exist (legacy data)
+                        if ($reasonText) {
+                            $codes = preg_split('/[\n,\s]+/', trim($reasonText));
+                            $reasonText = reset($codes);
+                        }
+                    @endphp
+                    {{ $reasonText ?? ($attendance->status == 0 ? 'N/A' : '') }}
+                </td>
                 <td>
                     @if ($attendance->status == 0)
                         N/A
@@ -133,6 +143,21 @@
         <p>Total Records: {{ $attendances->count() }}</p>
         <p>On Time: {{ $attendances->where('status', 1)->count() }}</p>
         <p>Late: {{ $attendances->where('status', 0)->count() }}</p>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <p style="font-size: 11px; font-weight: bold; margin-bottom: 6px;">Remarks:</p>
+        <div style="border: 1px solid #999; border-radius: 4px; min-height: 80px; padding: 8px; font-size: 10px; color: #555;">
+            &nbsp;
+        </div>
+        <div style="margin-top: 30px; display: flex; justify-content: space-between;">
+            <div style="text-align: center; width: 40%;">
+                <div style="border-top: 1px solid #333; padding-top: 4px; font-size: 9px;">Prepared by</div>
+            </div>
+            <div style="text-align: center; width: 40%;">
+                <div style="border-top: 1px solid #333; padding-top: 4px; font-size: 9px;">Approved by</div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

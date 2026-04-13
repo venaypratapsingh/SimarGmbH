@@ -51,13 +51,21 @@ class AttendanceExport implements FromCollection, WithHeadings, WithMapping
     public function map($attendance): array
     {
         $isAbsent = $attendance->status == 0;
+        
+        // Extract only the first code from absence_reason (handles legacy multi-code data)
+        $reasonText = $attendance->absence_reason;
+        if ($reasonText) {
+            $codes = preg_split('/[\n,\s]+/', trim($reasonText));
+            $reasonText = reset($codes);
+        }
+        
         return [
             $attendance->attendance_date,
             $attendance->emp_id,
             $attendance->employee->name ?? 'Unknown',
             $attendance->attendance_time,
             $attendance->status == 1 ? 'Present' : 'Absent',
-            $attendance->absence_reason ?? ($isAbsent ? 'N/A' : ''),
+            $reasonText ?? ($isAbsent ? 'N/A' : ''),
             $isAbsent ? 'N/A' : ($attendance->time_in ?? ($attendance->employee->schedules->first()->time_in ?? 'N/A')),
             $isAbsent ? 'N/A' : ($attendance->break_start ?? 'N/A'),
             $isAbsent ? 'N/A' : ($attendance->break_end ?? 'N/A'),

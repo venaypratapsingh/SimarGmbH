@@ -36,7 +36,16 @@ class AttendanceController extends Controller
     public function updateReason($id)
     {
         $attendance = Attendance::findOrFail($id);
-        $attendance->absence_reason = request()->input('absence_reason');
+        $reasonInput = request()->input('absence_reason');
+        
+        // Take only the first code if multiple are passed (handle legacy data)
+        // Split by newline, comma, or space and take first non-empty value
+        if ($reasonInput) {
+            $codes = preg_split('/[\n,\s]+/', trim($reasonInput));
+            $reasonInput = reset($codes); // Get first element
+        }
+        
+        $attendance->absence_reason = $reasonInput;
         $attendance->save();
 
         flash()->success('Success', 'Absence reason updated successfully!');

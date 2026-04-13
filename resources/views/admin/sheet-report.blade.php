@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('button')
-    <a href="{{ route('sheet-report.export.pdf') }}" class="btn btn-success btn-sm btn-flat">
-        <i class="mdi mdi-file-pdf-outline mr-2"></i>Export PDF
-    </a>
 @endsection
 
 @section('content')
@@ -10,9 +7,6 @@
     <div class="card">
         <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
             <span>TimeTable</span>
-            <a href="{{ route('sheet-report.export.pdf') }}" class="btn btn-light btn-sm">
-                <i class="mdi mdi-file-pdf-outline mr-1"></i>Export PDF
-            </a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

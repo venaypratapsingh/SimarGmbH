@@ -121,6 +121,7 @@
             if (this._wasChecked) {
                 this.checked = false;
                 this._wasChecked = false;
+                
             }
         });
     });

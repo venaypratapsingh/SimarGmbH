@@ -56,16 +56,15 @@
                                 <thead>
                                     <tr>
                                         <th data-priority="1">Date</th>
-                                        <th data-priority="2">Employee ID</th>
-                                        <th data-priority="3">Name</th>
-                                        <th data-priority="4">Status</th>
-                                        <th data-priority="5">Absence Reason</th>
-                                        <th data-priority="6">Time In</th>
-                                        <th data-priority="7">Break Start</th>
-                                        <th data-priority="8">Break End</th>
-                                        <th data-priority="9">Break Duration</th>
-                                        <th data-priority="10">Time Out</th>
-                                        <th data-priority="11">Total Working Time</th>
+                                        <th data-priority="1">Employee ID</th>
+                                        <th data-priority="1">Name</th>
+                                        <th data-priority="1">Status</th>
+                                        <th data-priority="1">Absence Reason</th>
+                                        <th data-priority="1">Time In</th>
+                                        <th data-priority="1">Break Start</th>
+                                        <th data-priority="1">Break End</th>
+                                        <th data-priority="1">Time Out</th>
+                                        <th data-priority="1">Total Working Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,14 +84,27 @@
                                             </td>
                                             <td>
                                                 @if ($attendance->status == 0)
-                                                    <form method="POST" action="{{ route('attendance.update_reason', $attendance->id) }}" style="display: inline;">
+                                                    <form method="POST" action="{{ route('attendance.update_reason', $attendance->id) }}" class="absence-form">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="text" name="absence_reason" value="{{ $attendance->absence_reason }}" class="form-control form-control-sm" style="width: 150px; display: inline;">
-                                                        <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                                                        <input type="hidden" name="absence_reason" class="absence-reason-input" value="{{ $attendance->absence_reason }}">
+                                                        <div style="display:flex; align-items:center; gap:6px;">
+                                                            {{-- Shows selected code prominently --}}
+                                                            <span class="absence-selected-display" style="display:inline-block; min-width:32px; font-size:14px; font-weight:800; color:#fff; background:#007bff; border-radius:8px; padding:2px 8px; text-align:center; letter-spacing:1px;">{{ $attendance->absence_reason ?: '?' }}</span>
+                                                            {{-- Vertical scrollable pill list --}}
+                                                            <div style="display:flex; flex-direction:column; gap:2px; max-height:84px; overflow-y:auto; border:1px solid #b8d4f0; border-radius:8px; padding:3px 4px; background:linear-gradient(135deg,#f8fbff,#eaf2ff); box-shadow:0 2px 6px rgba(0,123,255,.12);">
+                                                                @foreach(['K','U','UU','F','SA','SU'] as $code)
+                                                                    <button  type="button" class="absence-code-btn {{ $attendance->absence_reason === $code ? 'active-code' : '' }}"
+                                                                        data-code="{{ $code }}"
+                                                                        style="cursor:pointer; font-size:11px; font-weight:700; padding:2px 9px; border-radius:10px; border:1px solid {{ $attendance->absence_reason === $code ? '#0056b3' : '#b8d4f0' }}; background:{{ $attendance->absence_reason === $code ? '#007bff' : '#fff' }}; color:{{ $attendance->absence_reason === $code ? '#fff' : '#007bff' }}; white-space:nowrap; outline:none; box-shadow:none;">
+                                                                        {{ $code }}
+                                                                    </button>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
                                                     </form>
                                                 @else
-                                                    N/A
+                                                    &mdash;
                                                 @endif
                                             </td>
                                             <td>
@@ -120,23 +132,34 @@
                                                 @if ($attendance->status == 0)
                                                     N/A
                                                 @else
-                                                    {{ $attendance->break_duration_formatted ?? 'N/A' }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($attendance->status == 0)
-                                                    N/A
-                                                @else
                                                     {{ $attendance->time_out ?? ($attendance->employee->schedules->first()->time_out ?? 'N/A') }}
                                                 @endif
                                             </td>
-                                            <td>{{ $attendance->total_working_time_formatted ?? 'N/A' }} </td>
+                                            <td class="total-working-time-cell">{{ $attendance->total_working_time_formatted ?? 'N/A' }}</td>
                                         </tr>
 
                                     @endforeach
 
-
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="9" class="text-right font-weight-bold" style="background:#f8f9fa;">Total Working Hours:</td>
+                                        <td style="background:#f8f9fa; font-weight:700; color:#007bff;" id="total-working-sum">
+                                            @php
+                                                $totalMinutes = 0;
+                                                foreach($attendances as $a) {
+                                                    if ($a->total_working_time) {
+                                                        $parts = explode(':', $a->total_working_time);
+                                                        $totalMinutes += (intval($parts[0] ?? 0) * 60) + intval($parts[1] ?? 0);
+                                                    }
+                                                }
+                                                $totalHours = floor($totalMinutes / 60);
+                                                $remainingMins = $totalMinutes % 60;
+                                            @endphp
+                                            {{ sprintf('%02d:%02d', $totalHours, $remainingMins) }}
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -149,16 +172,93 @@
 
 
 @section('script')
-    <!-- Responsive-table-->
     <script src="{{ URL::asset('plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js') }}"></script>
- 
-@endsection
-
-@section('script')
+    <style>
+        .absence-code-btn:hover { background:#007bff !important; color:#fff !important; border-color:#0056b3 !important; }
+        .absence-code-btn.active-code { background:#007bff !important; color:#fff !important; border-color:#0056b3 !important; }
+        .absence-code-btn:focus { outline:none !important; box-shadow:none !important; }
+    </style>
     <script>
         $(function() {
             $('.table-responsive').responsiveTable({
                 addDisplayAllBtn: 'btn btn-secondary'
+            });
+
+            var unsavedForms = {};
+
+            // Floating save bar injected once
+            $('body').prepend(
+                '<div id="absence-save-bar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#fff3cd;border-bottom:2px solid #ffc107;padding:10px 20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.2);">'
+                + '<strong style="color:#856404;margin-right:12px;">&#9888; Unsaved absence reason changes</strong>'
+                + '<button id="absence-save-all" class="btn btn-warning btn-sm" style="border-radius:6px;font-weight:600;">&#128190; Save All</button>'
+                + '<button id="absence-discard-all" class="btn btn-outline-secondary btn-sm ml-2" style="border-radius:6px;">Discard</button>'
+                + '</div>'
+            );
+
+            // Click on abbreviation button
+            $(document).on('click', '.absence-code-btn', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var code = $(this).data('code').toString().trim();
+                var $form = $(this).closest('form.absence-form');
+                if (!$form.length) return;
+
+                // Fill hidden input
+                $form.find('.absence-reason-input').val(code);
+
+                // Update the badge display
+                $form.find('.absence-selected-display').text(code);
+
+                // Update active pill
+                $form.find('.absence-code-btn').removeClass('active-code');
+                $(this).addClass('active-code');
+
+                // Track unsaved
+                unsavedForms[$form.attr('action')] = $form;
+                $('#absence-save-bar').slideDown(200);
+            });
+
+            // Save All via AJAX
+            $(document).on('click', '#absence-save-all', function() {
+                var forms = Object.values(unsavedForms);
+                if (!forms.length) return;
+                var $btn = $(this).prop('disabled', true).text('Saving...');
+                var done = 0;
+                forms.forEach(function($f) {
+                    // Explicitly send only the absence_reason hidden input value
+                    var absenceReason = $f.find('.absence-reason-input').val();
+                    var csrfToken = $f.find('input[name="_token"]').val();
+                    $.ajax({
+                        url: $f.attr('action'),
+                        method: 'POST',
+                        data: {
+                            '_token': csrfToken,
+                            '_method': 'PUT',
+                            'absence_reason': absenceReason
+                        },
+                        complete: function() {
+                            done++;
+                            if (done === forms.length) {
+                                unsavedForms = {};
+                                $('#absence-save-bar').slideUp(200);
+                                $btn.prop('disabled', false).html('&#128190; Save All');
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Discard
+            $(document).on('click', '#absence-discard-all', function() {
+                location.reload();
+            });
+
+            // Warn before leaving with unsaved changes
+            window.addEventListener('beforeunload', function(e) {
+                if (Object.keys(unsavedForms).length > 0) {
+                    e.preventDefault();
+                    e.returnValue = 'You have unsaved absence reason changes. Leave anyway?';
+                }
             });
         });
     </script>
