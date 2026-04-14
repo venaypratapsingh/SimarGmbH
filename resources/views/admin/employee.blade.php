@@ -5,21 +5,21 @@
 
 @section('breadcrumb')
 <div class="col-sm-6">
-    <h4 class="page-title text-left">Employees</h4>
+    <h4 class="page-title text-left">{{ __('global.employees') }}</h4>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
-        <li class="breadcrumb-item"><a href="javascript:void(0);">Employees</a></li>
-        <li class="breadcrumb-item"><a href="javascript:void(0);">Employees List</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('global.home') }}</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('global.employees') }}</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('global.employees_list') }}</a></li>
   
     </ol>
 </div>
 @endsection
 @section('button')
-<a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="mdi mdi-plus mr-2"></i>Add</a>
+<a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="mdi mdi-plus mr-2"></i>{{ __('global.add_new') }}</a>
         
 <div class="btn-group ml-2">
     <button type="button" class="btn btn-success btn-sm btn-flat dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="mdi mdi-download mr-2"></i>Export
+        <i class="mdi mdi-download mr-2"></i>{{ __('global.export') }}
     </button>
     <div class="dropdown-menu">
         <a class="dropdown-item" href="{{ route('employees.export.csv') }}"><i class="mdi mdi-file-delimited-outline mr-2"></i>CSV</a>
@@ -53,14 +53,14 @@
                                         
                                                     <thead>
                                                     <tr>
-                                                        <th data-priority="1">Employee ID</th>
-                                                        <th data-priority="2">Name</th>
-                                                        <th data-priority="3">Restaurant</th>
+                                                        <th data-priority="1">{{ __('global.employee_id') }}</th>
+                                                        <th data-priority="2">{{ __('global.name') }}</th>
+                                                        <th data-priority="3">{{ __('global.restaurants') }}</th>
                                                         <!-- Removed Email Column -->
                                                         <!-- <th data-priority="4">Email</th> -->
-                                                        <th data-priority="5">Schedule</th>
-                                                        <th data-priority="6">Member Since</th>
-                                                        <th data-priority="7">Actions</th>
+                                                        <th data-priority="5">{{ __('global.schedule') }}</th>
+                                                        <th data-priority="6">{{ __('global.member_since') }}</th>
+                                                        <th data-priority="7">{{ __('global.actions') }}</th>
                                                      
                                                     </tr>
                                                     </thead>
@@ -81,8 +81,8 @@
                                                             <td>{{$employee->created_at}}</td>
                                                             <td>
                         
-                                                                <a href="#edit{{$employee->id}}" data-toggle="modal" class="btn btn-success btn-sm edit btn-flat"><i class='fa fa-edit'></i> Edit</a>
-                                                                <a href="#delete{{$employee->id}}" data-toggle="modal" class="btn btn-danger btn-sm delete btn-flat"><i class='fa fa-trash'></i> Delete</a>
+                                                                <a href="#edit{{$employee->id}}" data-toggle="modal" class="btn btn-success btn-sm edit btn-flat"><i class='fa fa-edit'></i> {{ __('global.edit') }}</a>
+                                                                <a href="#delete{{$employee->id}}" data-toggle="modal" class="btn btn-danger btn-sm delete btn-flat"><i class='fa fa-trash'></i> {{ __('global.delete') }}</a>
                                                             </td>
                                                         </tr>
                                                         @endforeach

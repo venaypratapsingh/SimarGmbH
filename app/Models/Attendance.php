@@ -102,17 +102,17 @@ class Attendance extends Model
     }
     
     /**
-     * Format total working time as HH:MM
+     * Format total working time as "HH hours MM minutes"
      */
     public function getTotalWorkingTimeFormattedAttribute()
     {
         if ($this->status == 0) {
-            return '00:00';
+            return '0 ' . __('global.hours') . ' 0 ' . __('global.minutes');
         }
         $minutes = $this->total_working_time;
         $hours = floor($minutes / 60);
         $remainingMinutes = $minutes % 60;
-        return sprintf('%02d:%02d', $hours, $remainingMinutes);
+        return $hours . ' ' . __('global.hours') . ' ' . $remainingMinutes . ' ' . __('global.minutes');
     }
     
     /**

@@ -7,12 +7,12 @@
                     <span aria-hidden="true">&times;</span></button>
               
             </div>
-            <h4 class="modal-title"><b>Add Schedule</b></h4>
+            <h4 class="modal-title"><b>{{ __('global.add_schedule') }}</b></h4>
             <div class="modal-body text-left">
                 <form class="form-horizontal" method="POST" action="{{ route('schedule.store') }}">
                     @csrf
                     <div class="form-group">
-                        <label for="name" class="col-sm-3 control-label">Name</label>
+                        <label for="name" class="col-sm-3 control-label">{{ __('global.name') }}</label>
 
                         
                             <div class="bootstrap-timepicker">
@@ -21,7 +21,7 @@
                         
                     </div>
                     <div class="form-group">
-                        <label for="time_in" class="col-sm-3 control-label">Time In</label>
+                        <label for="time_in" class="col-sm-3 control-label">{{ __('global.time_in') }}</label>
 
                         
                             <div class="bootstrap-timepicker">
@@ -30,7 +30,7 @@
                         
                     </div>
                     <div class="form-group">
-                        <label for="time_out" class="col-sm-3 control-label">Time Out</label>
+                        <label for="time_out" class="col-sm-3 control-label">{{ __('global.time_out') }}</label>
 
                         
                             <div class="bootstrap-timepicker">
@@ -39,7 +39,7 @@
                         
                     </div>
                     <div class="form-group">
-                        <label for="break_start" class="col-sm-3 control-label">Break Start</label>
+                        <label for="break_start" class="col-sm-3 control-label">{{ __('global.break_start') }}</label>
 
                         
                             <div class="bootstrap-timepicker">
@@ -48,7 +48,7 @@
                         
                     </div>
                     <div class="form-group">
-                        <label for="break_end" class="col-sm-3 control-label">Break End</label>
+                        <label for="break_end" class="col-sm-3 control-label">{{ __('global.break_end') }}</label>
 
                         
                             <div class="bootstrap-timepicker">
@@ -58,8 +58,8 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-                <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> {{ __('global.close') }}</button>
+                <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> {{ __('global.save') }}</button>
                 </form>
             </div>
         </div>

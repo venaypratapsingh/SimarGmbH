@@ -6,7 +6,7 @@
 
     <div class="card">
         <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-            <span>TimeTable</span>
+            <span>{{ __('global.timetable') }}</span>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -14,9 +14,9 @@
                     <thead>
                         <tr >
 
-                            <th>Employee Name</th>
-                            <th>Employee Position</th>
-                            <th>Employee ID</th>
+                            <th>{{ __('global.employee_name') }}</th>
+                            <th>{{ __('global.employee_position') }}</th>
+                            <th>{{ __('global.employee_id') }}</th>
                             @php
                                 $today = today();
                                 $dates = [];

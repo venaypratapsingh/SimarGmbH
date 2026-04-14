@@ -8,17 +8,17 @@
 
 @section('breadcrumb')
     <div class="col-sm-6">
-        <h4 class="page-title text-left">Schedules</h4>
+        <h4 class="page-title text-left">{{ __('global.schedules') }}</h4>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0);">Schedule</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('global.home') }}</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('global.schedule') }}</a></li>
             
             
         </ol>
     </div>
 @endsection
 @section('button')
-    <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="mdi mdi-plus mr-2"></i>Add</a>
+    <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="mdi mdi-plus mr-2"></i>{{ __('global.add') }}</a>
 @endsection
 
 @section('content')
@@ -48,12 +48,12 @@
                                 <thead>
                                     <tr>
                                         <th data-priority="1">ID</th>
-                                        <th data-priority="2">Shift</th>
-                                        <th data-priority="3">Time In</th>
-                                        <th data-priority="4">Time Out</th>
-                                        <th data-priority="5">Break Start</th>
-                                        <th data-priority="6">Break End</th>
-                                        <th data-priority="7">Action</th>
+                                        <th data-priority="2">{{ __('global.shift') }}</th>
+                                        <th data-priority="3">{{ __('global.time_in') }}</th>
+                                        <th data-priority="4">{{ __('global.time_out') }}</th>
+                                        <th data-priority="5">{{ __('global.break_start') }}</th>
+                                        <th data-priority="6">{{ __('global.break_end') }}</th>
+                                        <th data-priority="7">{{ __('global.action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,10 +68,10 @@
                                             <td>
                                                 <button type="button" data-toggle="modal" data-target="#edit{{ $schedule->id }}"
                                                     class="btn btn-success btn-sm edit btn-flat"><i class='fa fa-edit'></i>
-                                                    Edit</button>
+                                                    {{ __('global.edit') }}</button>
                                                 <button type="button" data-toggle="modal" data-target="#delete{{ $schedule->id }}"
                                                     class="btn btn-danger btn-sm delete btn-flat"><i
-                                                        class='fa fa-trash'></i> Delete</button>
+                                                        class='fa fa-trash'></i> {{ __('global.delete') }}</button>
                                             </td>
                                         </tr>
                                     @endforeach

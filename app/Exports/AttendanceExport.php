@@ -30,18 +30,18 @@ class AttendanceExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            'Date',
-            'Employee ID',
-            'Employee Name',
+            __('global.date'),
+            __('global.employee_id'),
+            __('global.employee_name'),
             'Attendance Time',
-            'Status',
-            'Absence Reason',
-            'Time In',
-            'Break Start',
-            'Break End',
+            __('global.status'),
+            __('global.absence_reason'),
+            __('global.time_in'),
+            __('global.break_start'),
+            __('global.break_end'),
             'Break Duration',
-            'Time Out',
-            'Total Working Time'
+            __('global.time_out'),
+            __('global.total_working_time')
         ];
     }
 
@@ -74,7 +74,7 @@ class AttendanceExport implements FromCollection, WithHeadings, WithMapping
             $attendance->emp_id,
             $attendance->employee->name ?? 'Unknown',
             $attendance->attendance_time,
-            $attendance->status == 1 ? 'Present' : 'Absent',
+            $attendance->status == 1 ? __('global.present') : __('global.absent'),
             $reasonText ?? ($isAbsent ? 'N/A' : ''),
             $isAbsent ? 'N/A' : ($attendance->time_in ?? ($attendance->employee->schedules->first()->time_in ?? 'N/A')),
             $isAbsent ? 'N/A' : ($attendance->break_start ?? 'N/A'),

@@ -17,9 +17,9 @@
                     <thead>
                         <tr>
 
-                            <th>Employee Name</th>
-                            <th>Employee Position</th>
-                            <th>Employee ID</th>
+                            <th>{{ __('global.employee_name') }}</th>
+                            <th>{{ __('global.employee_position') }}</th>
+                            <th>{{ __('global.employee_id') }}</th>
                             @php
                                 $today = today();
                                 $dates = [];
@@ -44,7 +44,7 @@
 
                         <form action="{{ route('check_store') }}" method="post">
                            
-                            <button type="submit" class="btn btn-success" style="display: flex; margin:10px">submit</button>
+                            <button type="submit" class="btn btn-success" style="display: flex; margin:10px">{{ __('global.submit') }}</button>
                             @csrf
                             @foreach ($employees as $employee)
 

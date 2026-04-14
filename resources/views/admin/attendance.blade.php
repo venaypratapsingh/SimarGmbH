@@ -7,31 +7,29 @@
 
 @section('breadcrumb')
     <div class="col-sm-6">
-        <h4 class="page-title text-left">Attendance</h4>
+        <h4 class="page-title text-left">{{ __('global.attendance') }}</h4>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0);">Attendance</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('global.home') }}</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('global.attendance') }}</a></li>
         </ol>
     </div>
 @endsection
 @section('button')
     <form method="GET" action="{{ route('attendance') }}" class="form-inline mb-2">
         <div class="form-group mr-2">
-            <label for="start_date" class="mr-2">From:</label>
+            <label for="start_date" class="mr-2">{{ __('global.from') }}</label>
             <input type="date" id="start_date" name="start_date" class="form-control" value="{{ request('start_date') }}">
         </div>
         <div class="form-group mr-2">
-            <label for="end_date" class="mr-2">To:</label>
+            <label for="end_date" class="mr-2">{{ __('global.to') }}</label>
             <input type="date" id="end_date" name="end_date" class="form-control" value="{{ request('end_date') }}">
         </div>
-        <button type="submit" class="btn btn-primary btn-sm btn-flat mr-2">Filter</button>
+        <button type="submit" class="btn btn-primary btn-sm btn-flat mr-2">{{ __('global.filter') }}</button>
     </form>
-
-    <a href="attendance/assign" class="btn btn-primary btn-sm btn-flat"><i class="mdi mdi-plus mr-2"></i>Add New</a>
     
     <div class="btn-group ml-2">
         <button type="button" class="btn btn-success btn-sm btn-flat dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="mdi mdi-download mr-2"></i>Export
+            <i class="mdi mdi-download mr-2"></i>{{ __('global.export') }}
         </button>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ route('attendance.export.csv', request()->query()) }}"><i class="mdi mdi-file-delimited-outline mr-2"></i>CSV</a>
@@ -55,16 +53,16 @@
                                         
                                 <thead>
                                     <tr>
-                                        <th data-priority="1">Date</th>
-                                        <th data-priority="1">Employee ID</th>
-                                        <th data-priority="1">Name</th>
-                                        <th data-priority="1">Status</th>
-                                        <th data-priority="1">Absence Reason</th>
-                                        <th data-priority="1">Time In</th>
-                                        <th data-priority="1">Break Start</th>
-                                        <th data-priority="1">Break End</th>
-                                        <th data-priority="1">Time Out</th>
-                                        <th data-priority="1">Total Working Time</th>
+                                        <th data-priority="1">{{ __('global.date') }}</th>
+                                        <th data-priority="1">{{ __('global.employee_id') }}</th>
+                                        <th data-priority="1">{{ __('global.name') }}</th>
+                                        <th data-priority="1">{{ __('global.status') }}</th>
+                                        <th data-priority="1">{{ __('global.absence_reason') }}</th>
+                                        <th data-priority="1">{{ __('global.time_in') }}</th>
+                                        <th data-priority="1">{{ __('global.break_start') }}</th>
+                                        <th data-priority="1">{{ __('global.break_end') }}</th>
+                                        <th data-priority="1">{{ __('global.time_out') }}</th>
+                                        <th data-priority="1">{{ __('global.total_working_time') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,9 +75,9 @@
                                             <td>{{ $attendance->employee->name ?? 'Unknown' }}</td>
                                             <td>
                                                 @if ($attendance->status == 1)
-                                                    <span class="badge badge-success badge-pill">Present</span>
+                                                    <span class="badge badge-success badge-pill">{{ __('global.present') }}</span>
                                                 @else
-                                                    <span class="badge badge-danger badge-pill">Absent</span>
+                                                    <span class="badge badge-danger badge-pill">{{ __('global.absent') }}</span>
                                                 @endif
                                             </td>
                                             <td>
@@ -143,20 +141,19 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="9" class="text-right font-weight-bold" style="background:#f8f9fa;">Total Working Hours:</td>
+                                        <td colspan="9" class="text-right font-weight-bold" style="background:#f8f9fa;">{{ __('global.total_working_hours') }}</td>
                                         <td style="background:#f8f9fa; font-weight:700; color:#007bff;" id="total-working-sum">
                                             @php
                                                 $totalMinutes = 0;
                                                 foreach($attendances as $a) {
-                                                    if ($a->total_working_time) {
-                                                        $parts = explode(':', $a->total_working_time);
-                                                        $totalMinutes += (intval($parts[0] ?? 0) * 60) + intval($parts[1] ?? 0);
+                                                    if ($a->status == 1 && $a->total_working_time) {
+                                                        $totalMinutes += $a->total_working_time;
                                                     }
                                                 }
                                                 $totalHours = floor($totalMinutes / 60);
                                                 $remainingMins = $totalMinutes % 60;
                                             @endphp
-                                            {{ sprintf('%02d:%02d', $totalHours, $remainingMins) }}
+                                            {{ $totalHours }} {{ __('global.hours') }} {{ $remainingMins }} {{ __('global.minutes') }}
                                         </td>
                                     </tr>
                                 </tfoot>

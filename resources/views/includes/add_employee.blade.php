@@ -8,7 +8,7 @@
 
             </div>
 
-            <h4 class="modal-title"><b>Add Employee</b></h4>
+            <h4 class="modal-title"><b>{{ __('global.add_employee') }}</b></h4>
             <div class="modal-body">
 
                 <div class="card-body text-left">
@@ -55,10 +55,10 @@
                         <div class="form-group">
                             <div>
                                 <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                    Submit
+                                    {{ __('global.submit') }}
                                 </button>
                                 <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
-                                    Cancel
+                                    {{ __('global.cancel') }}
                                 </button>
                             </div>
                         </div>

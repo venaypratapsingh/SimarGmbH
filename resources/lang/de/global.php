@@ -170,11 +170,6 @@ return [
 
     'csv_export'                           => 'Als CSV exportieren',
 
-];
-
-
-    ],
-
     'payments'                             => [
 
         'title'        => 'Payments',
@@ -701,7 +696,97 @@ return [
 
         "December"
 
-    ]
+    ],
+
+    // Dashboard translations
+    'total_employees'                      => 'Gesamtmitarbeiter',
+    'on_time_percentage'                   => 'Pünktlichkeitsprozentsatz',
+    'on_time_today'                        => 'Heute pünktlich',
+    'late_today'                           => 'Heute verspätet',
+    'monthly_report'                       => 'Monatsbericht',
+    'this_month'                           => 'Dieser Monat',
+    'last_month'                           => 'Letzter Monat',
+    'sales_analytics'                      => 'Verkaufsanalyse',
+    'more_info'                            => 'Mehr Info',
+
+    // Menu translations
+    'main_menu'                            => 'Hauptmenü',
+    'dashboard'                            => 'Armaturenbrett',
+    'management'                           => 'Verwaltung',
+    'employees'                            => 'Mitarbeiter',
+    'employees_list'                       => 'Mitarbeiterliste',
+    'schedule'                             => 'Zeitplan',
+    'attendance_sheet'                     => 'Anwesenheitsblatt',
+    'sheet_report'                         => 'Blattbericht',
+    'attendance_logs'                      => 'Anwesenheitsprotokolle',
+    'tools'                                => 'Werkzeuge',
+    'biometric_device'                     => 'Biometrisches Gerät',
+
+    // System translations
+    'attendance_management_system'         => 'Anwesenheitsmanagementsystem',
+    'crafted_with'                         => 'Entwickelt mit',
+    'welcome_to_attendance_system'         => 'Willkommen zum Anwesenheitsmanagementsystem (ÜBERSICHT)',
+    'simar_gmbh'                           => 'SIMAR GMBH',
+
+    // Schedule translations
+    'schedules'                            => 'Zeitpläne',
+    'home'                                 => 'Startseite',
+    'shift'                                => 'Schicht',
+    'time_in'                              => 'Zeit Ein',
+    'time_out'                             => 'Zeit Aus',
+    'break_start'                          => 'Pausenbeginn',
+    'break_end'                            => 'Pausenende',
+    'action'                               => 'Aktion',
+    'add'                                  => 'Hinzufügen',
+    'edit'                                 => 'Bearbeiten',
+    'delete'                               => 'Löschen',
+    'search'                               => 'Suchen',
+    'add_schedule'                         => 'Zeitplan hinzufügen',
+    'update_schedule'                      => 'Zeitplan aktualisieren',
+    'delete_schedule'                      => 'Zeitplan löschen',
+    'name'                                 => 'Name',
+    'close'                                => 'Schließen',
+    'save'                                 => 'Speichern',
+    'update'                               => 'Aktualisieren',
+    'are_you_sure'                         => 'Sind Sie sicher, dass Sie möchten löschen:',
+    'employee_name'                        => 'Mitarbeitername',
+    'employee_position'                    => 'Mitarbeiterposition',
+    'employee_id'                          => 'Mitarbeiter-ID',
+    'submit'                               => 'Einreichen',
+    'filter'                               => 'Filtern',
+    'cancel'                               => 'Abbrechen',
+    'delete_employee'                      => 'Mitarbeiter löschen',
+    'add_employee'                         => 'Mitarbeiter hinzufügen',
+    'update_employee'                      => 'Mitarbeiter aktualisieren',
+    'timetable'                            => 'Stundenplan',
+    'from'                                 => 'Von:',
+    'to'                                   => 'Bis:',
+    'add_new'                              => 'Neu hinzufügen',
+    'export'                               => 'Exportieren',
+    'total_working_hours'                  => 'Gesamtarbeitszeit:',
+    'date'                                 => 'Datum',
+    'name'                                 => 'Name',
+    'legend'                               => 'Legende:',
+    'present_abbr'                         => 'P = Anwesend',
+    'absent_abbr'                          => 'A = Abwesend',
+    'leave_abbr'                           => 'L = Urlaub',
+    'hours'                                => 'Stunden',
+    'minutes'                              => 'Minuten',
+    'total_days_present'                   => 'Gesamt Tage Anwesend',
+    'holidays'                             => 'Feiertage',
+    'remarks'                              => 'Bemerkungen',
+    'prepared_by'                          => 'Unterschrift von Arbeiter',
+    'approved_by'                          => 'Stempel von Unternehmen',
+    'attendance_report'                    => 'Anwesenheitsbericht',
+    'break_duration'                       => 'Pausendauer',
+    'time'                                 => 'Zeit',
+    'employees'                            => 'Mitarbeiter',
+    'employees_list'                       => 'Mitarbeiterliste',
+    'restaurants'                          => 'Restaurant',
+    'member_since'                         => 'Mitglied seit',
+    'actions'                              => 'Aktionen',
+    'edit'                                 => 'Bearbeiten',
+    'delete'                               => 'Löschen',
 
 ];
 

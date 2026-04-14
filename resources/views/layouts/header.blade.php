@@ -26,8 +26,13 @@
 
         <!-- language-->
         <li class="dropdown notification-list d-none d-md-block">
+            @php
+                $currentLocale = app()->getLocale();
+                $localeFlag = $currentLocale === 'de' ? 'assets/images/flags/germany_flag.jpg' : 'assets/images/flags/us_flag.jpg';
+                $localeName = $currentLocale === 'de' ? 'German' : 'English';
+            @endphp
             <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="assets/images/flags/us_flag.jpg" class="mr-2" height="12" alt=""/> English <span class="mdi mdi-chevron-down"></span>
+                <img src="{{ $localeFlag }}" class="mr-2" height="12" alt=""/> {{ $localeName }} <span class="mdi mdi-chevron-down"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right language-switch">
                 <a class="dropdown-item" href="{{ route('lang', 'en') }}"><img src="assets/images/flags/us_flag.jpg" alt="" height="16" /><span> English </span></a>

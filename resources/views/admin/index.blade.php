@@ -7,9 +7,9 @@
 
 @section('breadcrumb')
 <div class="col-sm-6 text-left" >
-     <h4 class="page-title">SIMAR GMBH</h4>
+     <h4 class="page-title">{{ __('global.simar_gmbh') }}</h4>
      <ol class="breadcrumb">
-         <li class="breadcrumb-item active">Welcome to Attendance Management System(DASHBOARD)</li>
+         <li class="breadcrumb-item active">{{ __('global.welcome_to_attendance_system') }}</li>
      </ol>
 </div>
 @endsection
@@ -23,7 +23,7 @@
                                             <div class="float-left mini-stat-img mr-4">
                                                 <span class="ti-id-badge" style="font-size: 20px"></span>
                                             </div>
-                                            <h5 class="font-16 text-uppercase mt-0 text-white-50">Total <br> Employees</h5>
+                                            <h5 class="font-16 text-uppercase mt-0 text-white-50">{{ __('global.total_employees') }}</h5>
                                             <h4 class="font-500">{{$data[0]}} </h4>
                                             <span class="ti-user" style="font-size: 71px"></span>
                                               
@@ -32,7 +32,7 @@
                                             <div class="float-right">
                                                 <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
                                             </div>
-                                            <p class="text-white-50 mb-0">More info</p>
+                                            <p class="text-white-50 mb-0">{{ __('global.more_info') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                             <div class="float-left mini-stat-img mr-4">
                                                 <i class="ti-alarm-clock" style="font-size: 20px"></i>
                                             </div>
-                                            <h6  class="font-16 text-uppercase mt-0 text-white-50" >On Time <br> Percentage</h6>
+                                            <h6  class="font-16 text-uppercase mt-0 text-white-50" >{{ __('global.on_time_percentage') }}</h6>
                                             <h4 class="font-500">{{$data[3]}} %<i class="text-danger ml-2"></i></h4>
                                             <span class="peity-donut" data-peity='{ "fill": ["#02a499", "#f2f2f2"], "innerRadius": 28, "radius": 32 }' data-width="72" data-height="72">{{$data[3]}}/{{count($data)}}</span>
                                                        
@@ -54,7 +54,7 @@
                                                 <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
                                             </div>
         
-                                            <p class="text-white-50 mb-0">More info</p>
+                                            <p class="text-white-50 mb-0">{{ __('global.more_info') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                             <div class="float-left mini-stat-img mr-4">
                                                 <i class=" ti-check-box " style="font-size: 20px"></i>
                                             </div>
-                                            <h5 class="font-16 text-uppercase mt-0 text-white-50">On Time <br> Today</h5>
+                                            <h5 class="font-16 text-uppercase mt-0 text-white-50">{{ __('global.on_time_today') }}</h5>
                                             <h4 class="font-500">{{$data[1]}} <i class=" text-success ml-2"></i></h4>
                                             <span class="peity-donut" data-peity='{ "fill": ["#02a499", "#f2f2f2"], "innerRadius": 28, "radius": 32 }' data-width="72" data-height="72">{{$data[1]}}/{{count($data)}}</span>
                                              
@@ -76,7 +76,7 @@
                                                 <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
                                             </div>
         
-                                            <p class="text-white-50 mb-0">More info</p>
+                                            <p class="text-white-50 mb-0">{{ __('global.more_info') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                             <div class="float-left mini-stat-img mr-4">
                                                 <i class="ti-alert" style="font-size: 20px"></i>
                                             </div>
-                                            <h5 class="font-16 text-uppercase mt-0 text-white-50">Late <br> Today</h5>
+                                            <h5 class="font-16 text-uppercase mt-0 text-white-50">{{ __('global.late_today') }}</h5>
                                             <h4 class="font-500">{{$data[2]}}<i class=" text-success ml-2"></i></h4>
                                             <span class="peity-donut" data-peity='{ "fill": ["#02a499", "#f2f2f2"], "innerRadius": 28, "radius": 32 }' data-width="72" data-height="72">{{$data[2]}}/{{count($data)}}</span>
                                              
@@ -98,7 +98,7 @@
                                                 <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
                                             </div>
         
-                                            <p class="text-white-50 mb-0">More info</p>
+                                            <p class="text-white-50 mb-0">{{ __('global.more_info') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                             <div class="col-xl-9">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="mt-0 header-title mb-5">Monthly Report</h4>
+                                        <h4 class="mt-0 header-title mb-5">{{ __('global.monthly_report') }}</h4>
                                         <div class="row">
                                             <div class="col-lg-7">
                                                 <div>
@@ -121,7 +121,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="text-center">
-                                                            <p class="text-muted mb-4">This month</p>
+                                                            <p class="text-muted mb-4">{{ __('global.this_month') }}</p>
                                                             <h4>124</h4>
                                                             <p class="text-muted mb-5">It will be as simple as in fact it will be occidental.</p>
                                                             <span class="peity-donut" data-peity='{ "fill": ["#02a499", "#f2f2f2"], "innerRadius": 28, "radius": 32 }' data-width="72" data-height="72">{{$data[3]}}/{{count($data)}}</span>
@@ -129,7 +129,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="text-center">
-                                                            <p class="text-muted mb-4">Last month</p>
+                                                            <p class="text-muted mb-4">{{ __('global.last_month') }}</p>
                                                             <h4>200</h4>
                                                             <p class="text-muted mb-5">It will be as simple as in fact it will be occidental.</p>
                                                             <span class="peity-donut" data-peity='{ "fill": ["#02a499", "#f2f2f2"], "innerRadius": 28, "radius": 32 }' data-width="72" data-height="72">3/5</span>
@@ -148,7 +148,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div>
-                                            <h4 class="mt-0 header-title mb-4">Sales Analytics</h4>
+                                            <h4 class="mt-0 header-title mb-4">{{ __('global.sales_analytics') }}</h4>
                                         </div>
                                         <div class="wid-peity mb-4">
                                             <div class="row">

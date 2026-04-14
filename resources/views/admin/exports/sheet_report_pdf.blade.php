@@ -127,7 +127,7 @@
     </table>
 
     <div class="footer">
-        <p>Legend: P = Present, A = Absent, L = Leave</p>
+        <p>{{ __('global.legend') }} {{ __('global.present_abbr') }}, {{ __('global.absent_abbr') }}, {{ __('global.leave_abbr') }}</p>
         <p>Total Employees: {{ $employees->count() }}</p>
         <p>Total Days: {{ count($dates) }}</p>
     </div>

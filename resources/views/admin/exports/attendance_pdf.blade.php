@@ -56,25 +56,28 @@
 </head>
 <body>
     <div class="header">
-        <h1>Attendance Report</h1>
-        <p>Generated on: {{ date('Y-m-d H:i:s') }}</p>
+        <h1 style="font-size: 18px; margin-bottom: 2px;">SIMAR GmbH</h1>
+        @if($attendances->count() > 0)
+            <p style="font-size: 14px; font-weight: bold; margin: 5px 0;">{{ $attendances->first()->employee->name ?? 'Employee' }}</p>
+        @endif
+        <p>{{ __('global.attendance_report') }} - {{ date('Y-m-d') }}</p>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Emp ID</th>
-                <th>Name</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Absence Reason</th>
-                <th>Time In</th>
-                <th>Break Start</th>
-                <th>Break End</th>
-                <th>Break Duration</th>
-                <th>Time Out</th>
-                <th>Total Working Time</th>
+                <th>{{ __('global.date') }}</th>
+                <th>{{ __('global.employee_id') }}</th>
+                <th>{{ __('global.name') }}</th>
+                <th>{{ __('global.time') }}</th>
+                <th>{{ __('global.status') }}</th>
+                <th>{{ __('global.absence_reason') }}</th>
+                <th>{{ __('global.time_in') }}</th>
+                <th>{{ __('global.break_start') }}</th>
+                <th>{{ __('global.break_end') }}</th>
+                <th>{{ __('global.break_duration') }}</th>
+                <th>{{ __('global.time_out') }}</th>
+                <th>{{ __('global.total_working_time') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -85,7 +88,7 @@
                 <td>{{ $attendance->employee->name ?? 'Unknown' }}</td>
                 <td>{{ $attendance->attendance_time }}</td>
                 <td class="{{ $attendance->status == 1 ? 'status-on-time' : 'status-late' }}">
-                    {{ $attendance->status == 1 ? 'Present' : 'Absent' }}
+                    {{ $attendance->status == 1 ? __('global.present') : __('global.absent') }}
                 </td>
                 <td>
                     @php
@@ -150,38 +153,33 @@
     </table>
 
     <div class="footer">
-        <p>Total Records: {{ $attendances->count() }}</p>
-        <p>On Time: {{ $attendances->where('status', 1)->count() }}</p>
-        <p>Late: {{ $attendances->where('status', 0)->count() }}</p>
+        <p>{{ __('global.total_days_present') }}: {{ $attendances->where('status', 1)->count() }}</p>
+        <p>{{ __('global.holidays') }}: {{ $attendances->where('status', 0)->count() }}</p>
         @php
             // Calculate total working hours
             $totalMinutes = 0;
             foreach($attendances as $a) {
-                if ($a->total_working_time) {
-                    $parts = explode(':', $a->total_working_time);
-                    $hours = intval($parts[0] ?? 0);
-                    $minutes = intval($parts[1] ?? 0);
-                    $totalMinutes += ($hours * 60) + $minutes;
+                if ($a->status == 1 && $a->total_working_time) {
+                    $totalMinutes += $a->total_working_time;
                 }
             }
             $totalHours = floor($totalMinutes / 60);
             $remainingMins = $totalMinutes % 60;
-            $totalTime = sprintf('%02d:%02d', $totalHours, $remainingMins);
         @endphp
-        <p><strong>Total Working Hours: {{ $totalTime }}</strong></p>
+        <p><strong>{{ __('global.total_working_hours') }} {{ $totalHours }} {{ __('global.hours') }} {{ $remainingMins }} {{ __('global.minutes') }}</strong></p>
     </div>
 
     <div style="margin-top: 40px;">
-        <p style="font-size: 11px; font-weight: bold; margin-bottom: 6px;">Remarks:</p>
+        <p style="font-size: 11px; font-weight: bold; margin-bottom: 6px;">{{ __('global.remarks') }}:</p>
         <div style="border: 1px solid #999; border-radius: 4px; min-height: 80px; padding: 8px; font-size: 10px; color: #555;">
             &nbsp;
         </div>
         <div style="margin-top: 30px; display: flex; justify-content: space-between;">
             <div style="text-align: center; width: 40%;">
-                <div style="border-top: 1px solid #333; padding-top: 4px; font-size: 9px;">Prepared by</div>
+                <div style="border-top: 1px solid #333; padding-top: 4px; font-size: 9px;">{{ __('global.prepared_by') }}</div>
             </div>
             <div style="text-align: center; width: 40%;">
-                <div style="border-top: 1px solid #333; padding-top: 4px; font-size: 9px;">Approved by</div>
+                <div style="border-top: 1px solid #333; padding-top: 4px; font-size: 9px;">{{ __('global.approved_by') }}</div>
             </div>
         </div>
     </div>
