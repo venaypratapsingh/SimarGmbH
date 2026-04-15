@@ -30,12 +30,24 @@ class AttendanceController extends Controller
         }
 
         // Filter by employee name or ID
-        if (request()->has('employee_search') && request()->employee_search != '') {
-            $search = request()->employee_search;
-            $query->whereHas('employee', function($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%')
-                  ->orWhere('id', 'like', '%' . $search . '%');
-            })->orWhere('emp_id', $search);
+        if (request()->has('employee_search') && !empty(request()->employee_search)) {
+            $search = trim(request()->employee_search);
+            
+            // Check if search is numeric (employee ID) or text (name)
+            if (is_numeric($search)) {
+                // If numeric, search by emp_id and employee id
+                $query->where(function($q) use ($search) {
+                    $q->where('emp_id', $search)
+                      ->orWhereHas('employee', function($subQ) use ($search) {
+                          $subQ->where('id', $search);
+                      });
+                });
+            } else {
+                // If text, search by employee name
+                $query->whereHas('employee', function($subQ) use ($search) {
+                    $subQ->where('name', 'like', '%' . $search . '%');
+                });
+            }
         }
 
         return $query;
