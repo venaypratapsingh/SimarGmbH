@@ -809,6 +809,9 @@ return [
     'delete'                               => 'Delete',
     'edit_time_schedule'                   => 'Edit Time and Schedule',
     'select_schedule'                      => 'Select Schedule',
+    'option_1'                             => 'Option 1',
+    'option_2'                             => 'Option 2',
+    'manually_edit_times'                  => 'Manually Edit Times',
 
 ];
 

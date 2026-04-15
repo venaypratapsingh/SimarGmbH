@@ -3,6 +3,9 @@
 @endsection
 
 @section('content')
+    @php
+        $allSchedules = \App\Models\Schedule::all();
+    @endphp
 
     <div class="card">
         <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
@@ -73,6 +76,8 @@
                                                        data-date="{{ $date_picker }}"
                                                        data-time-in="{{ $check_attd->time_in }}"
                                                        data-time-out="{{ $check_attd->time_out }}"
+                                                       data-break-start="{{ $check_attd->break_start }}"
+                                                       data-break-end="{{ $check_attd->break_end }}"
                                                        data-schedule="{{ $employee->schedules->first()->id ?? '' }}"
                                                        title="Click to edit time and schedule">
                                                     </i>
@@ -124,30 +129,49 @@
                             <label><strong>Date:</strong> <span id="attendanceDate"></span></label>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="timeIn">{{ __('global.time_in') }}</label>
-                            <input type="time" class="form-control" id="timeIn" name="time_in" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="timeOut">{{ __('global.time_out') }}</label>
-                            <input type="time" class="form-control" id="timeOut" name="time_out" required>
-                        </div>
-                        
+                        <hr>
+                        <p class="text-muted"><strong>{{ __('global.option_1') }}:</strong> {{ __('global.select_schedule') }}</p>
                         <div class="form-group">
                             <label for="scheduleSelect">{{ __('global.schedule') }}</label>
                             <select class="form-control" id="scheduleSelect" name="schedule_id">
                                 <option value="">-- {{ __('global.select_schedule') }} --</option>
-                                @foreach(\App\Models\Schedule::all() as $schedule)
+                                @foreach($allSchedules as $schedule)
                                     <option value="{{ $schedule->id }}">{{ $schedule->name ?? $schedule->slug }} ({{ $schedule->time_in }} - {{ $schedule->time_out }})</option>
                                 @endforeach
                             </select>
+                        </div>
+                        
+                        <hr>
+                        <p class="text-muted"><strong>{{ __('global.option_2') }}:</strong> {{ __('global.manually_edit_times') }}</p>
+                        
+                        <div class="form-group">
+                            <label for="timeIn">{{ __('global.time_in') }}</label>
+                            <input type="time" class="form-control" id="timeIn" name="time_in">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timeOut">{{ __('global.time_out') }}</label>
+                            <input type="time" class="form-control" id="timeOut" name="time_out">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="breakStart">{{ __('global.break_start') }}</label>
+                            <input type="time" class="form-control" id="breakStart" name="break_start">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="breakEnd">{{ __('global.break_end') }}</label>
+                            <input type="time" class="form-control" id="breakEnd" name="break_end">
+                        </div>
+                        
+                        <div id="validationError" class="alert alert-danger d-none mt-3" role="alert">
+                            Please either select a schedule OR fill in Time In and Time Out
                         </div>
                     </div>
                     
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('global.cancel') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('global.save') }}</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">{{ __('global.save') }}</button>
                     </div>
                 </form>
             </div>
@@ -166,6 +190,8 @@
         const date = check.data('date');
         const timeIn = check.data('time-in');
         const timeOut = check.data('time-out');
+        const breakStart = check.data('break-start');
+        const breakEnd = check.data('break-end');
         
         $('#attendanceId').val(attendanceId);
         $('#employeeId').val(employeeId);
@@ -173,6 +199,31 @@
         $('#attendanceDate').text(date);
         $('#timeIn').val(timeIn || '');
         $('#timeOut').val(timeOut || '');
+        $('#breakStart').val(breakStart || '');
+        $('#breakEnd').val(breakEnd || '');
+        $('#scheduleSelect').val('');
+        $('#validationError').addClass('d-none');
+    });
+
+    // Form submission validation
+    $('#editTimeForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        const scheduleId = $('#scheduleSelect').val();
+        const timeIn = $('#timeIn').val();
+        const timeOut = $('#timeOut').val();
+        
+        // Validation: Either schedule is selected OR both time_in and time_out are filled
+        const hasSchedule = scheduleId && scheduleId.trim() !== '';
+        const hasTimesFilledCompletely = timeIn && timeIn.trim() !== '' && timeOut && timeOut.trim() !== '';
+        
+        if (!hasSchedule && !hasTimesFilledCompletely) {
+            $('#validationError').removeClass('d-none');
+            return false;
+        }
+        
+        // If validation passes, submit the form
+        this.submit();
     });
 </script>
 <style>

@@ -789,6 +789,9 @@ return [
     'delete'                               => 'Löschen',
     'edit_time_schedule'                   => 'Zeit und Plan bearbeiten',
     'select_schedule'                      => 'Plan wählen',
+    'option_1'                             => 'Option 1',
+    'option_2'                             => 'Option 2',
+    'manually_edit_times'                  => 'Zeiten manuell bearbeiten',
 
 ];
 

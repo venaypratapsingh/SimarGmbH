@@ -91,29 +91,53 @@ class AttendanceController extends Controller
      */
     public function updateAttendance()
     {
-        $attendance = Attendance::findOrFail(request()->input('attendance_id'));
-        
-        // Update time in and time out
-        $attendance->time_in = request()->input('time_in');
-        $attendance->time_out = request()->input('time_out');
-        
-        // Recalculate total working time
-        if ($attendance->time_in && $attendance->time_out) {
-            $start = \Carbon\Carbon::parse($attendance->time_in);
-            $end = \Carbon\Carbon::parse($attendance->time_out);
-            $totalMinutes = $end->diffInMinutes($start);
+        try {
+            $attendance = Attendance::findOrFail(request()->input('attendance_id'));
             
-            // Subtract break duration if exists
-            if ($attendance->break_duration) {
-                $totalMinutes -= $attendance->break_duration;
+            // Update time in and time out if provided
+            if (request()->filled('time_in')) {
+                $attendance->time_in = request()->input('time_in');
+            }
+            if (request()->filled('time_out')) {
+                $attendance->time_out = request()->input('time_out');
             }
             
-            $attendance->total_working_time = $totalMinutes;
-        }
-        
-        $attendance->save();
+            // Update break times if provided
+            if (request()->filled('break_start')) {
+                $attendance->break_start = request()->input('break_start');
+            }
+            if (request()->filled('break_end')) {
+                $attendance->break_end = request()->input('break_end');
+            }
+            
+            // Recalculate total working time if both time_in and time_out are present
+            if ($attendance->time_in && $attendance->time_out) {
+                $start = \Carbon\Carbon::parse($attendance->time_in);
+                $end = \Carbon\Carbon::parse($attendance->time_out);
+                $totalMinutes = $end->diffInMinutes($start);
+                
+                // Recalculate break duration if both break times are present
+                if ($attendance->break_start && $attendance->break_end) {
+                    $breakStart = \Carbon\Carbon::parse($attendance->break_start);
+                    $breakEnd = \Carbon\Carbon::parse($attendance->break_end);
+                    $breakDuration = $breakEnd->diffInMinutes($breakStart);
+                    $attendance->break_duration = $breakDuration;
+                    $totalMinutes -= $breakDuration;
+                } elseif ($attendance->break_duration) {
+                    // Use existing break duration if no new break times provided
+                    $totalMinutes -= $attendance->break_duration;
+                }
+                
+                // Ensure total working time doesn't go negative
+                $attendance->total_working_time = max(0, $totalMinutes);
+            }
+            
+            $attendance->save();
 
-        return redirect()->back()->with('success', 'Attendance time updated successfully!');
+            return redirect()->back()->with('success', 'Attendance updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error updating attendance: ' . $e->getMessage());
+        }
     }
 
     /**
