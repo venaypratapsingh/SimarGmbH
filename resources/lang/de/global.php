@@ -787,6 +787,8 @@ return [
     'actions'                              => 'Aktionen',
     'edit'                                 => 'Bearbeiten',
     'delete'                               => 'Löschen',
+    'edit_time_schedule'                   => 'Zeit und Plan bearbeiten',
+    'select_schedule'                      => 'Plan wählen',
 
 ];
 

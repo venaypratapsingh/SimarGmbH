@@ -87,6 +87,36 @@ class AttendanceController extends Controller
     }
 
     /**
+     * Update attendance time and schedule from sheet report
+     */
+    public function updateAttendance()
+    {
+        $attendance = Attendance::findOrFail(request()->input('attendance_id'));
+        
+        // Update time in and time out
+        $attendance->time_in = request()->input('time_in');
+        $attendance->time_out = request()->input('time_out');
+        
+        // Recalculate total working time
+        if ($attendance->time_in && $attendance->time_out) {
+            $start = \Carbon\Carbon::parse($attendance->time_in);
+            $end = \Carbon\Carbon::parse($attendance->time_out);
+            $totalMinutes = $end->diffInMinutes($start);
+            
+            // Subtract break duration if exists
+            if ($attendance->break_duration) {
+                $totalMinutes -= $attendance->break_duration;
+            }
+            
+            $attendance->total_working_time = $totalMinutes;
+        }
+        
+        $attendance->save();
+
+        return redirect()->back()->with('success', 'Attendance time updated successfully!');
+    }
+
+    /**
      * Export attendance to CSV
      */
     public function exportCSV()

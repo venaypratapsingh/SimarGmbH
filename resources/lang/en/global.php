@@ -807,6 +807,8 @@ return [
     'actions'                              => 'Actions',
     'edit'                                 => 'Edit',
     'delete'                               => 'Delete',
+    'edit_time_schedule'                   => 'Edit Time and Schedule',
+    'select_schedule'                      => 'Select Schedule',
 
 ];
 

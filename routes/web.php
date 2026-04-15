@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
     
     Route::get('attendance', [AttendanceController::class, 'index'])->name('attendance');
     Route::put('attendance/update_reason/{id}', [AttendanceController::class, 'updateReason'])->name('attendance.update_reason');
+    Route::put('attendance/update', [AttendanceController::class, 'updateAttendance'])->name('attendance.update');
     // Attendance export routes
     Route::get('attendance/export/csv', [AttendanceController::class, 'exportCSV'])->name('attendance.export.csv');
     Route::get('attendance/export/excel', [AttendanceController::class, 'exportExcel'])->name('attendance.export.excel');
