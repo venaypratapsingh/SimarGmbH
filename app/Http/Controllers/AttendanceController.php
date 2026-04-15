@@ -50,6 +50,9 @@ class AttendanceController extends Controller
             }
         }
 
+        // Order by attendance date in ascending order (chronological)
+        $query->orderBy('attendance_date', 'asc');
+
         return $query;
     }
 
