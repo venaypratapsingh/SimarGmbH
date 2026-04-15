@@ -157,21 +157,39 @@ Access the application at `http://localhost:8000`
 ## 📷 Screenshots
 
 ### Dashboard
-- Real-time statistics
-- Employee count and metrics
-- Monthly attendance overview
+**Real-time metrics and analytics overview**
+
+![Dashboard Overview](screenshots/dashboard.png)
+
+Key metrics displayed:
+- Real-time statistics with employee count
+- On-time attendance percentage with visual indicators
+- Late arrivals tracking
+- Monthly report with trend analysis
+- Sales analytics by restaurant/branch
+- Professional UI with dark sidebar navigation
 
 ### Attendance Log
-- Sortable table with filters
-- Date range selection
-- Employee search functionality
-- Export options (PDF, Excel, CSV)
+**Advanced filtering and attendance management interface**
+
+![Attendance Log Management](screenshots/attendance-log.png)
+
+Features showcased:
+- Date range filtering (From/To)
+- Employee search by name or ID
+- Sortable data table with multiple columns
+- Status badges (Present/Absent) with color coding
+- Time tracking (Time In, Break Start/End, Time Out)
+- Total working hours calculation per employee
+- Flexible export options (PDF, Excel, CSV)
+- Responsive table design with pagination
 
 ### Sheet Report (TimeTable)
-- Interactive monthly calendar
-- Visual P/A/L status indicators
-- Clickable cells for editing
-- Modal for time/schedule changes
+- Interactive monthly calendar with P/A/L indicators
+- Clickable checkmarks on present attendance
+- Real-time modal for editing times and schedules
+- Automatic working hours recalculation
+- Schedule management inline
 
 ### PDF Export
 - Professional SIMAR GmbH header
@@ -254,9 +272,9 @@ This project showcases expertise in:
 ## 📞 Contact & Support
 
 For questions, suggestions, or collaboration opportunities:
-- **Email**: your-email@example.com
+- **Email**: nightninja.de@gmail.com
 - **GitHub**: [@venaypratapsingh](https://github.com/venaypratapsingh)
-- **LinkedIn**: [Your LinkedIn Profile]
+- **LinkedIn**: linkedin/venaypratapsingh
 
 ## 🎯 Future Enhancements
 
