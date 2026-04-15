@@ -14,9 +14,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class AttendanceController extends Controller
 {   
-    //show attendance 
-    public function index()
-    {  
+    /**
+     * Build attendance query with all filters
+     */
+    private function buildAttendanceQuery()
+    {
         $query = Attendance::with('employee');
 
         if (request()->has('start_date') && request()->start_date != '') {
@@ -27,6 +29,22 @@ class AttendanceController extends Controller
             $query->where('attendance_date', '<=', request()->end_date);
         }
 
+        // Filter by employee name or ID
+        if (request()->has('employee_search') && request()->employee_search != '') {
+            $search = request()->employee_search;
+            $query->whereHas('employee', function($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('id', 'like', '%' . $search . '%');
+            })->orWhere('emp_id', $search);
+        }
+
+        return $query;
+    }
+
+    //show attendance 
+    public function index()
+    {  
+        $query = $this->buildAttendanceQuery();
         $attendances = $query->get();
 
         return view('admin.attendance')->with(['attendances' => $attendances]);
@@ -145,16 +163,7 @@ class AttendanceController extends Controller
      */
     public function exportCSV()
     {
-        $query = Attendance::with('employee');
-
-        if (request()->has('start_date') && request()->start_date != '') {
-            $query->where('attendance_date', '>=', request()->start_date);
-        }
-
-        if (request()->has('end_date') && request()->end_date != '') {
-            $query->where('attendance_date', '<=', request()->end_date);
-        }
-
+        $query = $this->buildAttendanceQuery();
         $attendances = $query->get();
 
         return Excel::download(new AttendanceExport($attendances), 'attendance_' . date('Y-m-d') . '.csv', \Maatwebsite\Excel\Excel::CSV);
@@ -165,16 +174,7 @@ class AttendanceController extends Controller
      */
     public function exportExcel()
     {
-        $query = Attendance::with('employee');
-
-        if (request()->has('start_date') && request()->start_date != '') {
-            $query->where('attendance_date', '>=', request()->start_date);
-        }
-
-        if (request()->has('end_date') && request()->end_date != '') {
-            $query->where('attendance_date', '<=', request()->end_date);
-        }
-
+        $query = $this->buildAttendanceQuery();
         $attendances = $query->get();
 
         return Excel::download(new AttendanceExport($attendances), 'attendance_' . date('Y-m-d') . '.xlsx');
@@ -185,16 +185,7 @@ class AttendanceController extends Controller
      */
     public function exportPDF()
     {
-        $query = Attendance::with('employee');
-
-        if (request()->has('start_date') && request()->start_date != '') {
-            $query->where('attendance_date', '>=', request()->start_date);
-        }
-
-        if (request()->has('end_date') && request()->end_date != '') {
-            $query->where('attendance_date', '<=', request()->end_date);
-        }
-
+        $query = $this->buildAttendanceQuery();
         $attendances = $query->get();
 
         $pdf = PDF::loadView('admin.exports.attendance_pdf', compact('attendances'));

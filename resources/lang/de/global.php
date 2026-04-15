@@ -792,6 +792,7 @@ return [
     'option_1'                             => 'Option 1',
     'option_2'                             => 'Option 2',
     'manually_edit_times'                  => 'Zeiten manuell bearbeiten',
+    'search_by'                            => 'Suche nach',
 
 ];
 

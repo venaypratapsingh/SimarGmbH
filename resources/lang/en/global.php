@@ -812,6 +812,7 @@ return [
     'option_1'                             => 'Option 1',
     'option_2'                             => 'Option 2',
     'manually_edit_times'                  => 'Manually Edit Times',
+    'search_by'                            => 'Search By',
 
 ];
 

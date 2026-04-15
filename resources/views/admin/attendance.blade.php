@@ -26,6 +26,17 @@
         </div>
         <button type="submit" class="btn btn-primary btn-sm btn-flat mr-2">{{ __('global.filter') }}</button>
     </form>
+
+    <form method="GET" action="{{ route('attendance') }}" class="form-inline mb-2">
+        <input type="hidden" name="start_date" value="{{ request('start_date') }}">
+        <input type="hidden" name="end_date" value="{{ request('end_date') }}">
+        
+        <div class="form-group mr-2">
+            <label for="employee_search" class="mr-2">{{ __('global.search_by') }} {{ __('global.name') }} / {{ __('global.employee_id') }}</label>
+            <input type="text" id="employee_search" name="employee_search" class="form-control" placeholder="Enter name or ID" value="{{ request('employee_search') }}">
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm btn-flat mr-2">{{ __('global.filter') }}</button>
+    </form>
     
     <div class="btn-group ml-2">
         <button type="button" class="btn btn-success btn-sm btn-flat dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
