@@ -81,7 +81,7 @@
                                     @foreach ($attendances as $attendance)
 
                                         <tr>
-                                            <td>{{ $attendance->attendance_date }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($attendance->attendance_date)->format('d/m/Y') }}</td>
                                             <td>{{ $attendance->emp_id }}</td>
                                             <td>{{ $attendance->employee->name ?? 'Unknown' }}</td>
                                             <td>
