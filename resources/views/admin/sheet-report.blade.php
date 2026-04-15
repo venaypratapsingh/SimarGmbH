@@ -31,7 +31,7 @@
                             @endphp
                             @foreach ($dates as $date)
                             <th style="">
-                                {{ \Carbon\Carbon::parse($date)->format('d/m') }}
+                                {{ \Carbon\Carbon::parse($date)->format('d/m/Y') }}
                             </th>
                             @endforeach
 
